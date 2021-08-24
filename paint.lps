@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="1">
+      <Unit0>
+        <Filename Value="paint.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="paint"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="15"/>
+        <CursorPos X="21" Y="27"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit0>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="19" HistoryIndex="18">
+      <Position1>
+        <Filename Value="paint.pas"/>
+        <Caret Line="11" Column="10" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="paint.pas"/>
+        <Caret Line="99" Column="17" TopLine="75"/>
+      </Position2>
+      <Position3>
+        <Filename Value="paint.pas"/>
+        <Caret Line="115" Column="23" TopLine="94"/>
+      </Position3>
+      <Position4>
+        <Filename Value="paint.pas"/>
+        <Caret Line="24" Column="12" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="paint.pas"/>
+        <Caret Line="17" Column="12" TopLine="2"/>
+      </Position5>
+      <Position6>
+        <Filename Value="paint.pas"/>
+        <Caret Line="142" Column="9" TopLine="129"/>
+      </Position6>
+      <Position7>
+        <Filename Value="paint.pas"/>
+        <Caret Line="22" Column="5" TopLine="8"/>
+      </Position7>
+      <Position8>
+        <Filename Value="paint.pas"/>
+        <Caret Line="14" Column="9" TopLine="13"/>
+      </Position8>
+      <Position9>
+        <Filename Value="paint.pas"/>
+        <Caret Line="17" Column="38" TopLine="13"/>
+      </Position9>
+      <Position10>
+        <Filename Value="paint.pas"/>
+        <Caret Line="25" Column="5" TopLine="13"/>
+      </Position10>
+      <Position11>
+        <Filename Value="paint.pas"/>
+        <Caret Line="17" Column="16" TopLine="13"/>
+      </Position11>
+      <Position12>
+        <Filename Value="paint.pas"/>
+        <Caret Line="18" Column="18" TopLine="13"/>
+      </Position12>
+      <Position13>
+        <Filename Value="paint.pas"/>
+        <Caret Line="19" Column="13" TopLine="7"/>
+      </Position13>
+      <Position14>
+        <Filename Value="paint.pas"/>
+        <Caret Line="33" Column="37" TopLine="25"/>
+      </Position14>
+      <Position15>
+        <Filename Value="paint.pas"/>
+        <Caret Line="19" Column="19" TopLine="4"/>
+      </Position15>
+      <Position16>
+        <Filename Value="paint.pas"/>
+        <Caret Line="17" Column="16" TopLine="6"/>
+      </Position16>
+      <Position17>
+        <Filename Value="paint.pas"/>
+        <Caret Line="7" Column="15" TopLine="1"/>
+      </Position17>
+      <Position18>
+        <Filename Value="paint.pas"/>
+        <Caret Line="6" Column="18" TopLine="1"/>
+      </Position18>
+      <Position19>
+        <Filename Value="paint.pas"/>
+        <Caret Line="23" Column="6" TopLine="7"/>
+      </Position19>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>
