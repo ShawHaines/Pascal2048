@@ -1,9 +1,9 @@
-program Game2048;
+program Game65536;
 Uses Crt;
 type
   location=array[1..2]of byte;
 var
-  brick:array[1..4,1..4]of byte;
+  brick:array[1..6,1..6]of byte;
   x,y,i,j:byte;
   key:char;
   score:longword;
@@ -31,8 +31,8 @@ begin
   gotoxy(10,2);
   textbackground(Black);
   write(juzhong(score));
-  for y:=1 to 4 do
-  for x:=1 to 4 do
+  for y:=1 to 6 do
+  for x:=1 to 6 do
   begin
     case brick[x,y] of
     0:textbackground(White);
@@ -58,24 +58,24 @@ begin
   gotoxy(2,2);textcolor(White);write(2048);
   window(9,1,15,2);textbackground(Black);clrscr;
   gotoxy(2,1);write('Score');
-  window(1,4,28,4);clrscr;
-  for x:=1 to 4 do
+  window(1,4,42,4);clrscr;
+  for x:=1 to 6 do
   begin
-    window(7*x,5,7*x,16);
+    window(7*x,5,7*x,22);
     clrscr;
   end;
-  window(1,17,28,17);clrscr;
+  window(1,23,42,23);clrscr;
   window(1,1,80,25);
   print;
 end;
 procedure appear;
 var
-  empty:array[1..16]of location;
+  empty:array[1..36]of location;
 begin
   fillchar(empty,sizeof(location),0);
   i:=0;
-  for y:=1 to 4 do
-  for x:=1 to 4 do
+  for y:=1 to 6 do
+  for x:=1 to 6 do
   if brick[x,y]=0 then
   begin
     inc(i);
@@ -87,153 +87,125 @@ begin
 end;
 procedure moveup;
 var
-  x,y,i,j:byte;
+  x,y,i:byte;
 begin
-  for x:=1 to 4 do
-  for y:=1 to 3 do
+  for x:=1 to 6 do
   begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-y)do
-    begin
-      for i:=y to 3 do brick[x,i]:=brick[x,i+1];
-      brick[x,4]:=0;
-      inc(j);
-    end;
-  end;
-  for x:=1 to 4 do
-  for y:=1 to 3 do
-  if(brick[x,y]=brick[x,y+1])and(brick[x,y]>0)then
-  begin
-    inc(brick[x,y]);
-    score:=score+power(brick[x,y]);
-    brick[x,y+1]:=0;
-  end;
-  for x:=1 to 4 do
-  for y:=1 to 3 do
-  begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-y)do
-    begin
-      for i:=y to 3 do brick[x,i]:=brick[x,i+1];
-      brick[x,4]:=0;
-      inc(j);
-    end;
+    i:=0;
+    repeat
+      inc(i);
+      if brick[x,i]=0 then
+      for y:=i+1 to 6 do if brick[x,y]>0 then
+      begin
+        brick[x,i]:=brick[x,y];
+        brick[x,y]:=0;
+        break;
+      end;
+      if brick[x,i]=0 then break;
+      for y:=i+1 to 6 do
+      if brick[x,y]=brick[x,i]then
+      begin
+        inc(brick[x,i]);
+        score:=score+power(brick[x,i]);
+        brick[x,y]:=0;
+        break;
+      end else if brick[x,y]>0 then break;
+    until(i>=6);
   end;
 end;
 procedure movedown;
 var
-  x,y,i,j:byte;
+  x,y,i:byte;
 begin
-  for x:=1 to 4 do
-  for y:=4 downto 2 do
+  for x:=1 to 6 do
   begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-y)do
-    begin
-      for i:=y downto 2 do brick[x,i]:=brick[x,i-1];
-      brick[x,1]:=0;
-      inc(j);
-    end;
-  end;
-  for x:=1 to 4 do
-  for y:=4 downto 2 do
-  if(brick[x,y]=brick[x,y-1])and(brick[x,y]>0)then
-  begin
-    inc(brick[x,y]);
-    score:=score+power(brick[x,y]);
-    brick[x,y-1]:=0;
-  end;
-  for x:=1 to 4 do
-  for y:=4 downto 2 do
-  begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-y)do
-    begin
-      for i:=y downto 2 do brick[x,i]:=brick[x,i-1];
-      brick[x,1]:=0;
-      inc(j);
-    end;
+    i:=7;
+    repeat
+      dec(i);
+      if brick[x,i]=0 then
+      for y:=i-1 downto 1 do if brick[x,y]>0 then
+      begin
+        brick[x,i]:=brick[x,y];
+        brick[x,y]:=0;
+        break;
+      end;
+      if brick[x,i]=0 then break;
+      for y:=i-1 downto 1 do
+      if brick[x,y]=brick[x,i]then
+      begin
+        inc(brick[x,i]);
+        score:=score+power(brick[x,i]);
+        brick[x,y]:=0;
+        break;
+      end else if brick[x,y]>0 then break;
+    until(i<=1);
   end;
 end;
 procedure moveright;
 var
-  x,y,i,j:byte;
+  x,y,i:byte;
 begin
-  for y:=1 to 4 do
-  for x:=4 downto 2 do
+  for y:=1 to 6 do
   begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-x)do
-    begin
-      for i:=x downto 2 do brick[i,y]:=brick[i-1,y];
-      brick[1,y]:=0;
-      inc(j);
-    end;
-  end;
-  for y:=1 to 4 do
-  for x:=4 downto 2 do
-  if(brick[x,y]=brick[x-1,y])and(brick[x,y]>0)then
-  begin
-    inc(brick[x,y]);
-    score:=score+power(brick[x,y]);
-    brick[x-1,y]:=0;
-  end;
-  for y:=1 to 4 do
-  for x:=4 downto 2 do
-  begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-x)do
-    begin
-      for i:=x downto 2 do brick[i,y]:=brick[i-1,y];
-      brick[1,y]:=0;
-      inc(j);
-    end;
+    i:=7;
+    repeat
+      dec(i);
+      if brick[i,y]=0 then
+      for x:=i-1 downto 1 do if brick[x,y]>0 then
+      begin
+        brick[i,y]:=brick[x,y];
+        brick[x,y]:=0;
+        break;
+      end;
+      if brick[i,y]=0 then break;
+      for x:=i-1 downto 1 do
+      if brick[x,y]=brick[i,y]then
+      begin
+        inc(brick[i,y]);
+        score:=score+power(brick[i,y]);
+        brick[x,y]:=0;
+        break;
+      end else if brick[x,y]>0 then break;
+    until(i<=1);
   end;
 end;
 procedure moveleft;
 var
-  x,y,i,j:byte;
+  x,y,i:byte;
 begin
-  for y:=1 to 4 do
-  for x:=1 to 3 do
+  for y:=1 to 6 do
   begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-x)do
-    begin
-      for i:=x to 3 do brick[i,y]:=brick[i+1,y];
-      brick[4,y]:=0;
-      inc(j);
-    end;
-  end;
-  for y:=1 to 4 do
-  for x:=1 to 3 do
-  if(brick[x,y]=brick[x+1,y])and(brick[x,y]>0)then
-  begin
-    inc(brick[x,y]);
-    score:=score+power(brick[x,y]);
-    brick[x+1,y]:=0;
-  end;
-  for y:=1 to 4 do
-  for x:=1 to 3 do
-  begin
-    j:=0;
-    while(brick[x,y]=0)and(j<=4-x)do
-    begin
-      for i:=x to 3 do brick[i,y]:=brick[i+1,y];
-      brick[4,y]:=0;
-      inc(j);
-    end;
+    i:=0;
+    repeat
+      inc(i);
+      if brick[i,y]=0 then
+      for x:=i+1 to 6 do if brick[x,y]>0 then
+      begin
+        brick[i,y]:=brick[x,y];
+        brick[x,y]:=0;
+        break;
+      end;
+      if brick[i,y]=0 then break;
+      for x:=i+1 to 6 do
+      if brick[x,y]=brick[i,y]then
+      begin
+        inc(brick[i,y]);
+        score:=score+power(brick[i,y]);
+        brick[x,y]:=0;
+        break;
+      end else if brick[x,y]>0 then break;
+    until(i>=6);
   end;
 end;
 function checkdie:boolean;
 var
   x,y:byte;
 begin
-  for x:=1 to 4 do
-  for y:=1 to 3 do
+  for x:=1 to 6 do
+  for y:=1 to 5 do
   if brick[x,y]=brick[x,y+1] then exit(false);
-  for y:=1 to 4 do
-  for x:=1 to 3 do
+  for y:=1 to 6 do
+  for x:=1 to 5 do
   if brick[x,y]=brick[x+1,y] then exit(false);
   exit(true);
 end;
@@ -242,36 +214,36 @@ var
    x,y,i:byte;
 begin
   case direction of
-  1:for x:=1 to 4 do
+  1:for x:=1 to 6 do
     begin
-      for y:=1 to 3 do
+      for y:=1 to 5 do
       if brick[x,y]=0 then
-      for i:=y+1 to 4 do if brick[x,i]>0 then exit(true);
-      for y:=1 to 3 do
+      for i:=y+1 to 6 do if brick[x,i]>0 then exit(true);
+      for y:=1 to 5 do
       if(brick[x,y]=brick[x,y+1])and(brick[x,y]>0)then exit(true);
     end;
-  2:for x:=1 to 4 do
+  2:for x:=1 to 6 do
     begin
-      for y:=4 downto 2 do
+      for y:=6 downto 2 do
       if brick[x,y]=0 then
       for i:=y-1 downto 1 do if brick[x,i]>0 then exit(true);
-      for y:=4 downto 2 do
+      for y:=6 downto 2 do
       if(brick[x,y]=brick[x,y-1])and(brick[x,y]>0)then exit(true);
     end;
-  3:for y:=1 to 4 do
+  3:for y:=1 to 6 do
     begin
-      for x:=1 to 3 do
+      for x:=1 to 5 do
       if brick[x,y]=0 then
-      for i:=x+1 to 4 do if brick[i,y]>0 then exit(true);
-      for x:=1 to 3 do
+      for i:=x+1 to 6 do if brick[i,y]>0 then exit(true);
+      for x:=1 to 5 do
       if(brick[x,y]=brick[x+1,y])and(brick[x,y]>0)then exit(true);
     end;
-  4:for y:=1 to 4 do
+  4:for y:=1 to 6 do
     begin
-      for x:=4 downto 2 do
+      for x:=6 downto 2 do
       if brick[x,y]=0 then
       for i:=x-1 downto 1 do if brick[i,y]>0 then exit(true);
-      for x:=4 downto 2 do
+      for x:=6 downto 2 do
       if(brick[x,y]=brick[x-1,y])and(brick[x,y]>0)then exit(true);
     end;
   end;
@@ -290,15 +262,10 @@ begin
     key:=readkey;
     case ord(key)of
     27:halt;
-    0:begin
-      key:=readkey;
-      case ord(key)of
-      72:if effect(1)then moveup else continue;
-      80:if effect(2)then movedown else continue;
-      75:if effect(3)then moveleft else continue;
-      77:if effect(4)then moveright else continue;
-      end;
-      end;
+    72:if effect(1)then moveup else continue;
+    80:if effect(2)then movedown else continue;
+    75:if effect(3)then moveleft else continue;
+    77:if effect(4)then moveright else continue;
     end;
     print;
     delay(100);
